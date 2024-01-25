@@ -1,5 +1,6 @@
 "use client";
 import React from "react";
+import axios from "axios";
 import { useForm } from "react-hook-form";
 
 export default function register() {
@@ -9,11 +10,15 @@ export default function register() {
     formState: { errors },
   } = useForm();
 
-  const onSubmit = handleSubmit((data) => {
+  const onSubmit = handleSubmit(async (data) => {
     console.log(data);
+    try {
+      const response = await axios.post("http://localhost:3002/user", data);
+      console.log(response.data);
+    } catch (error) {
+      console.error("Error submitting data:", error);
+    }
   });
-
-  console.log(errors);
 
   return (
     <div className="w-80 rounded-2xl bg-slate-900">
@@ -30,8 +35,8 @@ export default function register() {
             className="p-3 rounded block mb-2 bg-slate-700 text-slate-300"
             type="text"
             placeholder="User"
-            {...register("username", {
-              required: { value: true, message: "field required" },
+            {...register("name", {
+              required: { value: true, message: "User required" },
             })}
           />
           {errors.username && (
@@ -45,7 +50,7 @@ export default function register() {
             type="email"
             placeholder="Email"
             {...register("email", {
-              required: { value: true, message: "field required" },
+              required: { value: true, message: "email required" },
             })}
           />
 
@@ -64,7 +69,7 @@ export default function register() {
             type="password"
             placeholder="Password"
             {...register("password", {
-              required: { value: true, message: "field required" },
+              required: { value: true, message: "Password required" },
             })}
           />
           {errors.username && (

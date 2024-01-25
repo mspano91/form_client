@@ -1,5 +1,10 @@
-import React from "react";
+import ListUsers from "@/app/HomePage/ListUsers";
 
 export default function HomePage() {
-  return <h1>homePage</h1>;
+  return (
+    <>
+      <h1 className="text-red-300">homePage</h1>
+      <ListUsers />
+    </>
+  );
 }
